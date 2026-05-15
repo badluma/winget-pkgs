@@ -13,5 +13,7 @@ jobs:
           Write-Output $output
           if ($output -match "Manifest validation failed") { exit 1 }
           exit 0
+      - name: Enable local manifests
+        run: winget settings --enable LocalManifestFiles
       - name: Install
         run: winget install --manifest manifests/b/badluma/Comprobot/2.3.1 --silent --accept-package-agreements
