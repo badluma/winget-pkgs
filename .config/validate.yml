@@ -1,0 +1,8 @@
+name: Validate
+on: workflow_dispatch
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: winget validate --manifest manifests/b/badluma/Comprobot/2.3.1
