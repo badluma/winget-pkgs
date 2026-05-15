@@ -1,0 +1,17 @@
+name: Validate Manifest
+on: workflow_dispatch
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: add-comprobot-2.3.1
+      - name: Validate
+        run: |
+          $output = winget validate --manifest manifests/b/badluma/Comprobot/2.3.1 2>&1
+          Write-Output $output
+          if ($output -match "Manifest validation failed") { exit 1 }
+          exit 0
+      - name: Install
+        run: winget install --manifest manifests/b/badluma/Comprobot/2.3.1 --silent --accept-package-agreements
